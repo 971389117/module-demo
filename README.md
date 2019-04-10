@@ -180,6 +180,39 @@ new Sidebar();
 ```
 
 本节 tag : v3
+
+但是如果你运行上面的代码，多半会出现报下面的问题。
 ```
 Uncaught SyntaxError: Unexpected identifier
 ```
+这是因为现在的浏览器尚不支持 es6 的语法。当然，可能在你使用的时候已经支持了。甚至，我们又进化了呢？
+
+## part4
+
+为了解决上面的问题，webpack 等打包工具应用而生。
+
+webpack is a module bundler.
+
+解决问题三步走
+1.在项目中安装 webpack
+`npm install webpack webpack-cli -D`
+2.用 webpack编译项目
+`npx webapck index.js`
+
+3.将 index.html 改成下面这样
+```html
+    <p>这是我们的网页内容</p>
+    <div id="root"></div>
+
+    <script src="./dist/main.js"></script>
+```
+
+好了，我们也学会给代码分章节了，问题解决了，终于可以好好写代码了。
+
+如果你感兴趣，可以发现webpack 把四个 js 文件 压缩成了一个main.js ,而 main.js 中的代码被压缩成了一行，连空格都没有了呢。
+
+本节 tag : v4
+
+## 总结
+
+技术是在不断进步的，随时都可能出现新的解决方案，而上面所写的也不过是让你了解模块化的概念，更多的东西，还需要你继续学习。
