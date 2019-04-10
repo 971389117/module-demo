@@ -1,0 +1,32 @@
+{
+  "name": "module-demo",
+  "version": "1.0.0",
+  "description": "克隆本仓库 命令行输入 `git reset --hard [tag]`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no teadsasdfsdaasfasdst specified\" && exit 1",
+    "bundle": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/971389117/module-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/971389117/module-demo/issues"
+  },
+  "homepage": "https://github.com/971389117/module-demo#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.5.1",
+    "css-loader": "^2.1.1",
+    "file-loader": "^3.0.1",
+    "node-sass": "^4.11.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "url-loader": "^1.1.2",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
+}
