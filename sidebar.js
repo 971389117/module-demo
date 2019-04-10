@@ -4,3 +4,5 @@ function Sidebar() {
     sidebar.innerText = 'sidebar'
     dom.append(sidebar)
 }
+
+export default Sidebar

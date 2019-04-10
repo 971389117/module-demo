@@ -4,3 +4,5 @@ function Content() {
     content.innerText = 'content'
     dom.append(content)
 }
+
+export default Content
