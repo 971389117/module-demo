@@ -1,9 +1,10 @@
-# 你好，朋友
-
-克隆本仓库
-命令行输入
-`git reset --hard [tag]`
-
+# 笔记
+(#%E7%AC%94%E8%AE%B0)
+  - [part1](#part1)
+  - [part2](#part2)
+  - [part3](#part3)
+  - [part4](#part4)
+  - [总结](#%E6%80%BB%E7%BB%93)
 ## part1
 
 在最开始，前端是这样做开发的
@@ -13,7 +14,7 @@ index.html
 ```html
 <p>这是我们的网页内容</p>
 <div id="root"></div>
-<script src="./index.js"></script>
+<script src="./index.js"></script>- [笔记]
 ```
 
 index.js
@@ -103,8 +104,7 @@ new Sidebar();
 
 本节 tag : v2
 
-回到正题，这样似乎是解决了刚才的问题，但是又诞生了新的问题。 1.每个 js 文件都会发送一个 HTTP 请求，HTTP 请求过多，会影响网页的加载速度。
-2.如果 index.html 里的 js 文件顺序错了，很可能引发意想不到的错误，增加维护成本。
+回到正题，这样似乎是解决了刚才的问题，但是又诞生了新的问题。 1.每个 js 文件都会发送一个 HTTP 请求，HTTP 请求过多，会影响网页的加载速度。 2.如果 index.html 里的 js 文件顺序错了，很可能引发意想不到的错误，增加维护成本。
 例如：把 index.js 不小心写在了 header.js 的前面
 
 ```html
@@ -186,9 +186,11 @@ new Sidebar();
 本节 tag : v3
 
 但是如果你运行上面的代码，多半会出现报下面的问题。
+
 ```
 Uncaught SyntaxError: Unexpected identifier
 ```
+
 这是因为现在的浏览器尚不支持 es6 的语法。当然，可能在你使用的时候已经支持了。甚至，我们又进化了呢？
 
 ## part4
@@ -197,23 +199,22 @@ Uncaught SyntaxError: Unexpected identifier
 
 webpack is a module bundler.
 
-解决问题三步走
-1.在项目中安装 webpack
-`npm install webpack webpack-cli -D`
-2.用 webpack编译项目
+解决问题三步走 1.在项目中安装 webpack
+`npm install webpack webpack-cli -D` 2.用 webpack 编译项目
 `npx webapck index.js`
 
 3.将 index.html 改成下面这样
-```html
-    <p>这是我们的网页内容</p>
-    <div id="root"></div>
 
-    <script src="./dist/main.js"></script>
+```html
+<p>这是我们的网页内容</p>
+<div id="root"></div>
+
+<script src="./dist/main.js"></script>
 ```
 
 好了，我们也学会给代码分章节了，问题解决了，终于可以好好写代码了。
 
-如果你感兴趣，可以发现webpack 把四个 js 文件 压缩成了一个main.js ,而 main.js 中的代码被压缩成了一行，连空格都没有了呢。
+如果你感兴趣，可以发现 webpack 把四个 js 文件 压缩成了一个 main.js ,而 main.js 中的代码被压缩成了一行，连空格都没有了呢。
 
 本节 tag : v4
 
