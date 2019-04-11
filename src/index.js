@@ -1,11 +1,4 @@
-import avatar from './avatar.jpg'
-import  './index.scss'
-import createAvatar from './createAvatar'
+import './index.scss'
+let root = document.querySelector('#root')
 
-let root=document.querySelector('#root')
-createAvatar()
-
-let img=new Image()
-img.src=avatar;
-img.classList.add('avatar')
-root.append(img)
+root.innerHTML='<div class="iconfont icon-douban">abc</div>'

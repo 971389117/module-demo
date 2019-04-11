@@ -20,8 +20,8 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                test: /\.(eot|ttf|svg|woff)$/,
+                use: 'file-loader'
             },
             {
                 test: /\.scss$/,
@@ -34,7 +34,6 @@ module.exports = {
                     }
                     },
                     'sass-loader',
-                    'postcss-loader'
                 ]
             }
         ]

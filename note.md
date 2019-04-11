@@ -2,6 +2,8 @@
 
     module
     start
-    file-loader url-loader
+    loaders
+        file-loader url-loader css-loader style-loader sass-loader postcss-loader
 
-    
+    guedes
+        asset management
