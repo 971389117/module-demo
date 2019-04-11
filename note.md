@@ -8,6 +8,7 @@
     guides
         Asset Management
         Output Management *
+        Development *
     plugins
         - 在运行到某个时刻的时候，帮你做些事情
         html-webpack-plugin
@@ -19,3 +20,10 @@
         output
         entry and Context
         devtool -
+        devServer
+
+自动打包
+    1.webpack --watch
+    2.webpack-dev-server
+        npm i webpack-dev-server -D
+    3.手写一个 dev-server

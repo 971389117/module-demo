@@ -3,10 +3,13 @@ const HTmlwebpackPlugin=require('html-webpack-plugin')
 const CleanWebpackPlugin=require('clean-webpack-plugin')
 module.exports = {
     mode: 'development', //production development
-    // development devtool:'cheap-module-eval-source-map',
-    // production devtool:'cheap-module-source-map',
     entry: {
         main: './src/index.js',
+    },
+    devServer:{
+        contentBase:'./dist',
+        open:true,
+        port:8080,
     },
     module: {
         rules: [{
@@ -45,6 +48,7 @@ module.exports = {
         template:'src/index.html'
     }),new CleanWebpackPlugin()],
     output: {
+        publicPath:'/',
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
     }
