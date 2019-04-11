@@ -86,14 +86,14 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./node_modules/postcss-loader/src/index.js!./src/index.scss":
-/*!*****************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./node_modules/postcss-loader/src!./src/index.scss ***!
-  \*****************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/postcss-loader/src/index.js!./src/index.scss":
+/*!***************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/lib/loader.js!./node_modules/postcss-loader/src!./src/index.scss ***!
+  \***************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"body .avatar {\\n  height: 150px;\\n  width: 150px;\\n  -webkit-transform: translate(100px, 100px);\\n  transform: translate(100px, 100px); }\\n\", \"\"]);\n\n\n\n//# sourceURL=webpack:///./src/index.scss?./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./node_modules/postcss-loader/src");
+eval("exports = module.exports = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ \"./node_modules/css-loader/dist/runtime/api.js\")(false);\n// Module\nexports.push([module.i, \"body ._3GghCIZezOKYfcPQ5UQscm {\\n  background-color: #fff; }\\n\\nbody ._17cnVz87yzSOO5TpFdnLsk {\\n  height: 150px;\\n  width: 150px;\\n  -webkit-transform: translate(100px, 100px);\\n  transform: translate(100px, 100px); }\\n\", \"\"]);\n\n// Exports\nexports.locals = {\n\t\"abc\": \"_3GghCIZezOKYfcPQ5UQscm\",\n\t\"avatar\": \"_17cnVz87yzSOO5TpFdnLsk\"\n};\n\n//# sourceURL=webpack:///./src/index.scss?./node_modules/css-loader/dist/cjs.js??ref--6-1!./node_modules/sass-loader/lib/loader.js!./node_modules/postcss-loader/src");
 
 /***/ }),
 
@@ -142,27 +142,15 @@ eval("module.exports = __webpack_require__.p + \"images/avatar_cc90b6a0859f94fe2
 
 /***/ }),
 
-/***/ "./src/content.js":
-/*!************************!*\
-  !*** ./src/content.js ***!
-  \************************/
+/***/ "./src/createAvatar.js":
+/*!*****************************!*\
+  !*** ./src/createAvatar.js ***!
+  \*****************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nfunction Content() {\n    let dom = document.querySelector('#root')\n    let content = document.createElement('div')\n    content.innerText = 'content'\n    dom.append(content)\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Content);\n\n\n//# sourceURL=webpack:///./src/content.js?");
-
-/***/ }),
-
-/***/ "./src/header.js":
-/*!***********************!*\
-  !*** ./src/header.js ***!
-  \***********************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nfunction Header() {\n    let dom = document.querySelector('#root')\n    let header = document.createElement('div')\n    header.innerText = 'header'\n    dom.append(header)\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Header);\n\n\n//# sourceURL=webpack:///./src/header.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _avatar_jpg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./avatar.jpg */ \"./src/avatar.jpg\");\n/* harmony import */ var _avatar_jpg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_avatar_jpg__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.scss */ \"./src/index.scss\");\n/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_index_scss__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nfunction createAvatar(){\n    let root=document.querySelector('#root')\n\n    let img=new Image()\n    img.src=_avatar_jpg__WEBPACK_IMPORTED_MODULE_0___default.a;\n    img.classList.add('avatar')\n    root.append(img)\n\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (createAvatar);\n\n\n//# sourceURL=webpack:///./src/createAvatar.js?");
 
 /***/ }),
 
@@ -174,7 +162,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nfunction Header() {\n    let 
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _header_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./header.js */ \"./src/header.js\");\n/* harmony import */ var _content_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./content.js */ \"./src/content.js\");\n/* harmony import */ var _sidebar_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sidebar.js */ \"./src/sidebar.js\");\n/* harmony import */ var _avatar_jpg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./avatar.jpg */ \"./src/avatar.jpg\");\n/* harmony import */ var _avatar_jpg__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_avatar_jpg__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./index.scss */ \"./src/index.scss\");\n/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_index_scss__WEBPACK_IMPORTED_MODULE_4__);\n\n\n\n\n// import './index.css';\n\n\nconsole.log(_avatar_jpg__WEBPACK_IMPORTED_MODULE_3___default.a)\nlet root=document.querySelector('#root')\n\nlet img=new Image()\nimg.src=_avatar_jpg__WEBPACK_IMPORTED_MODULE_3___default.a;\nimg.classList.add('avatar')\nroot.append(img)\nconsole.log(root)\n\nnew _header_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]()\nnew _content_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]()\nnew _sidebar_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"]()\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _avatar_jpg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./avatar.jpg */ \"./src/avatar.jpg\");\n/* harmony import */ var _avatar_jpg__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_avatar_jpg__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.scss */ \"./src/index.scss\");\n/* harmony import */ var _index_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_index_scss__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _createAvatar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createAvatar */ \"./src/createAvatar.js\");\n\n\n\n\n\nlet root=document.querySelector('#root')\nObject(_createAvatar__WEBPACK_IMPORTED_MODULE_2__[\"default\"])()\n\nlet img=new Image()\nimg.src=_avatar_jpg__WEBPACK_IMPORTED_MODULE_0___default.a;\nimg.classList.add(_index_scss__WEBPACK_IMPORTED_MODULE_1___default.a.avatar)\nroot.append(img)\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -185,19 +173,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _hea
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("\nvar content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js!../node_modules/sass-loader/lib/loader.js!../node_modules/postcss-loader/src!./index.scss */ \"./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/lib/loader.js!./node_modules/postcss-loader/src/index.js!./src/index.scss\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack:///./src/index.scss?");
-
-/***/ }),
-
-/***/ "./src/sidebar.js":
-/*!************************!*\
-  !*** ./src/sidebar.js ***!
-  \************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nfunction Sidebar() {\n    let dom = document.querySelector('#root')\n    let sidebar = document.createElement('div')\n    sidebar.innerText = 'sidebar'\n    dom.append(sidebar)\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Sidebar);\n\n\n//# sourceURL=webpack:///./src/sidebar.js?");
+eval("\nvar content = __webpack_require__(/*! !../node_modules/css-loader/dist/cjs.js??ref--6-1!../node_modules/sass-loader/lib/loader.js!../node_modules/postcss-loader/src!./index.scss */ \"./node_modules/css-loader/dist/cjs.js?!./node_modules/sass-loader/lib/loader.js!./node_modules/postcss-loader/src/index.js!./src/index.scss\");\n\nif(typeof content === 'string') content = [[module.i, content, '']];\n\nvar transform;\nvar insertInto;\n\n\n\nvar options = {\"hmr\":true}\n\noptions.transform = transform\noptions.insertInto = undefined;\n\nvar update = __webpack_require__(/*! ../node_modules/style-loader/lib/addStyles.js */ \"./node_modules/style-loader/lib/addStyles.js\")(content, options);\n\nif(content.locals) module.exports = content.locals;\n\nif(false) {}\n\n//# sourceURL=webpack:///./src/index.scss?");
 
 /***/ })
 
