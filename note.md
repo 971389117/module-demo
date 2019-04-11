@@ -4,11 +4,15 @@
     start
     loaders
         file-loader url-loader css-loader style-loader sass-loader postcss-loader
-
+    API
+        Hot Module Replacement
+    concepts
+        Hot Module Replacement
     guides
         Asset Management
         Output Management *
         Development *
+        Hot Module Replacement
     plugins
         - 在运行到某个时刻的时候，帮你做些事情
         html-webpack-plugin

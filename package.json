@@ -4,11 +4,7 @@
   "description": "克隆本仓库 命令行输入 `git reset --hard [tag]`",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no teadsasdfsdaasfasdst specified\" && exit 1",
-    "bundle": "webpack",
-    "watch": "webpack --watch",
-    "start": "webpack-dev-server",
-    "server": "node server.js"
+    "start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
