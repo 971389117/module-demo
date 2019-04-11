@@ -31,7 +31,6 @@ module.exports = {
                     loader:'css-loader',
                     options:{
                         importLoaders:2,
-                        modules:true //开启 css 的模块化打包
                     }
                     },
                     'sass-loader',
