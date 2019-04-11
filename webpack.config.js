@@ -1,9 +1,11 @@
 const path = require('path')
-
+const HTmlwebpackPlugin=require('html-webpack-plugin')
+const CleanWebpackPlugin=require('clean-webpack-plugin')
 module.exports = {
     mode: 'development', //production
     entry: {
-        main: './src/index.js'
+        main: './src/index.js',
+        sub: './src/index.js',
     },
     module: {
         rules: [{
@@ -38,8 +40,12 @@ module.exports = {
             }
         ]
     },
+    plugins:[new HTmlwebpackPlugin({
+        template:'src/index.html'
+    }),new CleanWebpackPlugin()],
     output: {
-        filename: 'bundle.js',
+        publicPath:'http://cdn.com.cn',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
     }
 }
