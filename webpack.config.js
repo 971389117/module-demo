@@ -16,6 +16,25 @@ module.exports = {
     },
     module: {
         rules: [{
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader",
+                options: {
+
+                    // 注入全局环境变量
+                    // "presets": [
+                    //     ["@babel/preset-env", {
+                    //         "targets": {
+                    //             "chrome": ">67"
+                    //         },
+                    //         "useBuiltIns": "usage"
+                    //     }]
+                    // ]
+                    // 闭包注入 不影响全局环境
+                    //    pluing
+
+                }
+            }, {
                 test: /\.(jpg|jpeg|png|gif)$/,
                 use: {
                     // file-loader
