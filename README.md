@@ -314,3 +314,80 @@ module.exports={
 
 这段新增的代码也做了一件事，在打包的时候，把上一次打包成的`dist`目录删除【new CleanWebpackPlugin()】,然后将`index.html` 作为模板，copy 到 output 输出的目录中。
 
+本节分支：git checkout entryAndOutputAndPlugins
+
+
+### loader
+
+webpack 可以自动打包 js 文件，所以上面的程序运行很 ok，但是它默认无法打包 css,图片，各种数据文件等等，需要做一些配置来实现他们,这个就是 loader。
+
+#### css
+将目录修改为以下形式:
+module-demo
+  src
+    index.html
+    index.js
+    index.css
+  package.json
+  ...
+
+index.css
+``` css
+.rect{
+    height: 30px;
+    width: 30px;
+    background-color:gray;
+}
+```
+
+index.js
+``` js
+import './index.css'
+
+let dom=document.createElement('div')
+dom.classList.add('rect')
+dom.innerHTML='abcdefg'
+document.querySelector('#root').append(dom)
+
+```
+我们通过 js ，让 webpack 来处理引入关系，而不再手动处理。
+
+webpack.config.js
+```js
+    ...
+    entry:{
+        main:'./src/index.js'
+    },
+    module:{
+        rules:[
+            {
+                test:/\.css$/,
+                use:[
+                    'style-loader',
+                    'css-loader',
+                ]
+            }
+        ]
+    },
+    plugins:[
+        new HtmlWebpackPlugin({template:'./src/index.html'}),
+        new CleanWebpackPlugin(),
+    ],
+    ...
+}
+```
+安装两个 loader
+`npm i -D style-loader css-loader`
+打开 dist/index.html 看一看，css 起作用了。
+
+再打开控制面板，找到 `head`，可以看到 style 被引入到这里了。
+
+这里需要注意的点是：先执行 css-loader,后执行 style-loader,也就是多 loader 时候，是从下往上执行。
+css-loader 让 webpack 可以在 js 中引入 css
+style-loader 将引入的 css 导入到 index.html 中。
+
+#### scss
+
+除了 css，我们还希望引入 scss 等东西。
+
+

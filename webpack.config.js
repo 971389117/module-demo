@@ -3,10 +3,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports={
     entry:{
-        main:'./index.js'
+        main:'./src/index.js'
+    },
+    module:{
+        rules:[
+            {
+                test:/\.css$/,
+                use:[
+                    'style-loader',
+                    'css-loader',
+                ]
+            }
+        ]
     },
     plugins:[
-        new HtmlWebpackPlugin({template:'index.html'}),
+        new HtmlWebpackPlugin({template:'./src/index.html'}),
         new CleanWebpackPlugin(),
     ],
     output:{
