@@ -1,4 +1,23 @@
 # 笔记
+- [笔记](#%E7%AC%94%E8%AE%B0)
+  - [什么是模块化呢？](#%E4%BB%80%E4%B9%88%E6%98%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%91%A2)
+    - [前端的蛮荒时代](#%E5%89%8D%E7%AB%AF%E7%9A%84%E8%9B%AE%E8%8D%92%E6%97%B6%E4%BB%A3)
+    - [分段式前端](#%E5%88%86%E6%AE%B5%E5%BC%8F%E5%89%8D%E7%AB%AF)
+    - [模块化 - 分章节写作](#%E6%A8%A1%E5%9D%97%E5%8C%96---%E5%88%86%E7%AB%A0%E8%8A%82%E5%86%99%E4%BD%9C)
+    - [引出 webpack 解决问题](#%E5%BC%95%E5%87%BA-webpack-%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98)
+    - [什么是模块化总结](#%E4%BB%80%E4%B9%88%E6%98%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E6%80%BB%E7%BB%93)
+  - [webpack](#webpack)
+    - [entryAndOutput](#entryandoutput)
+    - [plugins](#plugins)
+    - [loader](#loader)
+      - [css](#css)
+      - [scss](#scss)
+      - [图像](#%E5%9B%BE%E5%83%8F)
+      - [url-loader](#url-loader)
+      - [字体库](#%E5%AD%97%E4%BD%93%E5%BA%93)
+      - [小节](#%E5%B0%8F%E8%8A%82)
+    - [命令](#%E5%91%BD%E4%BB%A4)
+    - [SourceMap](#sourcemap)
 
 ## 什么是模块化呢？
 
@@ -489,4 +508,117 @@ webpack.config.js
 name:输出后的名字 [name] 原文件名 [hash] hash 码，后缀[ext] ，拼接后文件名就是 `avatar-cc90b6a0859f94fe216618ee19bb0aa5.png`
 outputPath:输出的文件路径
 
-#### 字体
+本节 tag：loader-file-img
+
+#### url-loader
+
+url-loader works like file-loader, but can return a DataURL if the file is smaller than a byte limit.
+将小图片转成 base64,可以减少HTTP 请求
+index.js
+```js
+import avatar2 from './avatar2.png'
+
+...
+let img2=new Image()
+img2.src=avatar2
+
+document.querySelector('#root').append(dom,img,img2)
+```
+webpack.config.js
+
+```js
+        {
+                test:/\.(png|jpg|gif)$/,
+                use:[
+                    {
+                        loader:'url-loader',
+                        options:{
+                            name:'[name]-[hash].[ext]',
+                            outputPath:'images',
+                            limit:10240, //8192
+                        }
+                    }
+                ]
+            },
+```
+>>Base64是一种基于64个可打印字符来表示二进制数据的表示方法。
+
+`npm i -D url-loader`
+#### 字体库
+
+接下来，我们引入一些字体库
+
+[下载](https://www.iconfont.cn/api/project/download.zip?spm=a313x.7781069.1998910419.d7543c303&pid=1100450&ctoken=LO0hFvm7f1Jol_kcKMwve5qW)字体库
+
+复制到 src目录下
+
+index.js
+```js
+import './iconfont.css'
+
+...
+let font=document.createElement('div')
+font.className='iconfont icon-douban'
+
+document.querySelector('#root').append(dom,img,img2,font)
+
+```
+webpack.config.js
+```js
+            {
+                test:/\.(eot|svg|ttf|woff|woff2)$/,
+                use:[
+                    {
+                        loader:'url-loader',
+                        options:{
+                            name:'[name]-[hash].[ext]',
+                            outputPath:'fonts',
+                            limit:1024, //8192
+                        }
+                    }
+                ]
+            },
+```
+
+如果一切正常，图标已经显示出来了。
+
+#### 小节
+
+loader 有很多很多，各种各样的 loader，但归根结底，它们的作用都是让 webpack 知道怎么打包类型文件。
+
+### 命令
+
+每次写完代码，都得 `npx ...` 是不是很麻烦，通过命令让你不再麻烦。
+
+package.json
+```json
+  ...
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  ...
+```
+webpack.config.js
+```js
+    devServer:{
+        contentBase:'./dist',
+        //open:true,
+        port:8080,
+        hot:true,  // 开启 hot 加载
+        hotOnly:true// 即使 html 不生效，浏览器也不刷新
+    }
+```
+新的命令
+`npm run start`
+
+
+### SourceMap
+打包后的文件，在调试的时候有些问题，SourceMap 可以解决这个问题。
+
+webpack.config.js
+```js
+    mode:'development',
+    devtool:'cheap-module-eval-source-map', //development
+    // production cheap-module-source-map
+```
+

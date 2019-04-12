@@ -1,9 +1,20 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+var webpack = require('webpack');
 module.exports={
+    mode:'development',
+    devtool:'cheap-module-eval-source-map', //development
+    // production cheap-module-source-map
     entry:{
         main:'./src/index.js'
+    },
+    devServer:{
+        contentBase:'./dist',
+        //open:true,
+        port:8080,
+        hot:true,  // 开启 hot 加载
+        hotOnly:true// 即使 html 不生效，浏览器也不刷新
     },
     module:{
         rules:[
@@ -29,14 +40,40 @@ module.exports={
                     'postcss-loader',
                 ]
             },
+            // {
+            //     test:/\.(png|jpg|gif)$/,
+            //     use:[
+            //         {
+            //             loader:'file-loader',
+            //             options:{
+            //                 name:'[name]-[hash].[ext]',
+            //                 outputPath:'images'
+            //             }
+            //         }
+            //     ]
+            // },
             {
                 test:/\.(png|jpg|gif)$/,
                 use:[
                     {
-                        loader:'file-loader',
+                        loader:'url-loader',
                         options:{
                             name:'[name]-[hash].[ext]',
-                            outputPath:'images'
+                            outputPath:'images',
+                            limit:15240, //8192
+                        }
+                    }
+                ]
+            },
+            {
+                test:/\.(eot|svg|ttf|woff|woff2)$/,
+                use:[
+                    {
+                        loader:'url-loader',
+                        options:{
+                            name:'[name]-[hash].[ext]',
+                            outputPath:'fonts',
+                            limit:1024, //8192
                         }
                     }
                 ]
@@ -46,8 +83,10 @@ module.exports={
     plugins:[
         new HtmlWebpackPlugin({template:'./src/index.html'}),
         new CleanWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
     ],
     output:{
+        // publicPath:'http://cdn.com.cn',
         filename:'[name].js',
         path:path.resolve(__dirname,'dist')
     }
