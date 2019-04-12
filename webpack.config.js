@@ -1,7 +1,7 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-var webpack = require('webpack');
+const webpack = require('webpack');
 module.exports={
     mode:'development',
     devtool:'cheap-module-eval-source-map', //development
@@ -10,9 +10,9 @@ module.exports={
         main:'./src/index.js'
     },
     devServer:{
-        contentBase:'./dist',
+        contentBase:'./dist', //服务器根路径
         //open:true,
-        port:8080,
+        port:8000,
         hot:true,  // 开启 hot 加载
         hotOnly:true// 即使 html 不生效，浏览器也不刷新
     },

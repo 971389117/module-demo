@@ -17,6 +17,8 @@
       - [字体库](#%E5%AD%97%E4%BD%93%E5%BA%93)
       - [小节](#%E5%B0%8F%E8%8A%82)
     - [命令](#%E5%91%BD%E4%BB%A4)
+      - [watch](#watch)
+      - [devServer](#devserver)
     - [SourceMap](#sourcemap)
 
 ## 什么是模块化呢？
@@ -590,6 +592,19 @@ loader 有很多很多，各种各样的 loader，但归根结底，它们的作
 
 每次写完代码，都得 `npx ...` 是不是很麻烦，通过命令让你不再麻烦。
 
+#### watch
+
+package.json
+```json
+  ...
+  "scripts": {
+    "watch":"webpack --watch"
+  },
+  ...
+```
+半自动编译，手动刷新浏览器
+
+#### devServer
 package.json
 ```json
   ...
@@ -604,14 +619,51 @@ webpack.config.js
         contentBase:'./dist',
         //open:true,
         port:8080,
-        hot:true,  // 开启 hot 加载
-        hotOnly:true// 即使 html 不生效，浏览器也不刷新
     }
 ```
+`npm i -D webpack-dev-server`
 新的命令
 `npm run start`
 
+浏览器自动刷新，但是还可以更强大
 
+**HotModuleReplacement**
+
+更改 CSS JS 后不更新浏览器，完全热更新模块
+webpack.config.js
+```js
+    const webpack = require('webpack');
+    ...
+    devServer:{
+        contentBase:'./dist',
+        //open:true,
+        port:8080,
+        hot:true,  // 开启 hot 加载
+        hotOnly:true// 即使 html 不生效，浏览器也不刷新 | 如果出错了，不自动刷新浏览器
+    }
+    ...
+        plugins:[
+        new HtmlWebpackPlugin({template:'./src/index.html'}),
+        new CleanWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+    ],
+    ...
+```
+做的 CSS 修改完全自动热更新，vue 、react 组件也可以完全自动热加载，因为它们都做了部署。而你自己写的 JS 文件，或者其它冷门的格式可能需要自己写部署，有点麻烦。
+例如：
+index.js
+```js
+if(module.hot){
+    module.hot.accept('./number',()=>{
+        document.body.removeChild(document.querySelector('#number'))
+        number()
+    })
+}
+```
+当模块发生改变时，执行回调函数。
+
+
+devServer会在内存中，提高处理速度
 ### SourceMap
 打包后的文件，在调试的时候有些问题，SourceMap 可以解决这个问题。
 
@@ -621,4 +673,3 @@ webpack.config.js
     devtool:'cheap-module-eval-source-map', //development
     // production cheap-module-source-map
 ```
-
