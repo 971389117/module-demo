@@ -1,4 +1,5 @@
 # 笔记
+
 - [笔记](#%E7%AC%94%E8%AE%B0)
   - [什么是模块化呢？](#%E4%BB%80%E4%B9%88%E6%98%AF%E6%A8%A1%E5%9D%97%E5%8C%96%E5%91%A2)
     - [前端的蛮荒时代](#%E5%89%8D%E7%AB%AF%E7%9A%84%E8%9B%AE%E8%8D%92%E6%97%B6%E4%BB%A3)
@@ -16,14 +17,19 @@
       - [url-loader](#url-loader)
       - [字体库](#%E5%AD%97%E4%BD%93%E5%BA%93)
       - [小节](#%E5%B0%8F%E8%8A%82)
-    - [命令](#%E5%91%BD%E4%BB%A4)
+    - [热部署](#%E7%83%AD%E9%83%A8%E7%BD%B2)
       - [watch](#watch)
       - [devServer](#devserver)
     - [SourceMap](#sourcemap)
+    - [开发环境和上线环境](#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%92%8C%E4%B8%8A%E7%BA%BF%E7%8E%AF%E5%A2%83)
+    - [babel 配置](#babel-%E9%85%8D%E7%BD%AE)
 
 ## 什么是模块化呢？
 
 编程时，了解一个概念，最好的方式是了解它的发展，从历史上了解，为什么会出现这种技术？
+
+>>将一个复杂的程序依据一定的规则（规范）封装成几个块（文件），并进行组合在一起。
+>>块的内部数据/实现是私有的，只是向外部暴露一些接口（方法）与外部其它模块通信。
 
 ### 前端的蛮荒时代
 
@@ -505,6 +511,7 @@ webpack.config.js
     ]
   },
 ```
+
 `npm i -D file-loader`
 
 name:输出后的名字 [name] 原文件名 [hash] hash 码，后缀[ext] ，拼接后文件名就是 `avatar-cc90b6a0859f94fe216618ee19bb0aa5.png`
@@ -515,8 +522,9 @@ outputPath:输出的文件路径
 #### url-loader
 
 url-loader works like file-loader, but can return a DataURL if the file is smaller than a byte limit.
-将小图片转成 base64,可以减少HTTP 请求
+将小图片转成 base64,可以减少 HTTP 请求
 index.js
+
 ```js
 import avatar2 from './avatar2.png'
 
@@ -526,6 +534,7 @@ img2.src=avatar2
 
 document.querySelector('#root').append(dom,img,img2)
 ```
+
 webpack.config.js
 
 ```js
@@ -543,18 +552,21 @@ webpack.config.js
                 ]
             },
 ```
->>Base64是一种基于64个可打印字符来表示二进制数据的表示方法。
+
+> > Base64 是一种基于 64 个可打印字符来表示二进制数据的表示方法。
 
 `npm i -D url-loader`
+
 #### 字体库
 
 接下来，我们引入一些字体库
 
 [下载](https://www.iconfont.cn/api/project/download.zip?spm=a313x.7781069.1998910419.d7543c303&pid=1100450&ctoken=LO0hFvm7f1Jol_kcKMwve5qW)字体库
 
-复制到 src目录下
+复制到 src 目录下
 
 index.js
+
 ```js
 import './iconfont.css'
 
@@ -565,7 +577,9 @@ font.className='iconfont icon-douban'
 document.querySelector('#root').append(dom,img,img2,font)
 
 ```
+
 webpack.config.js
+
 ```js
             {
                 test:/\.(eot|svg|ttf|woff|woff2)$/,
@@ -588,13 +602,14 @@ webpack.config.js
 
 loader 有很多很多，各种各样的 loader，但归根结底，它们的作用都是让 webpack 知道怎么打包类型文件。
 
-### 命令
+### 热部署
 
 每次写完代码，都得 `npx ...` 是不是很麻烦，通过命令让你不再麻烦。
 
 #### watch
 
 package.json
+
 ```json
   ...
   "scripts": {
@@ -602,10 +617,13 @@ package.json
   },
   ...
 ```
+
 半自动编译，手动刷新浏览器
 
 #### devServer
+
 package.json
+
 ```json
   ...
   "scripts": {
@@ -613,7 +631,9 @@ package.json
   },
   ...
 ```
+
 webpack.config.js
+
 ```js
     devServer:{
         contentBase:'./dist',
@@ -621,6 +641,7 @@ webpack.config.js
         port:8080,
     }
 ```
+
 `npm i -D webpack-dev-server`
 新的命令
 `npm run start`
@@ -631,6 +652,7 @@ webpack.config.js
 
 更改 CSS JS 后不更新浏览器，完全热更新模块
 webpack.config.js
+
 ```js
     const webpack = require('webpack');
     ...
@@ -649,27 +671,92 @@ webpack.config.js
     ],
     ...
 ```
+
 做的 CSS 修改完全自动热更新，vue 、react 组件也可以完全自动热加载，因为它们都做了部署。而你自己写的 JS 文件，或者其它冷门的格式可能需要自己写部署，有点麻烦。
 例如：
 index.js
+
 ```js
-if(module.hot){
-    module.hot.accept('./number',()=>{
-        document.body.removeChild(document.querySelector('#number'))
-        number()
-    })
+if (module.hot) {
+  module.hot.accept("./number", () => {
+    document.body.removeChild(document.querySelector("#number"));
+    number();
+  });
 }
 ```
+
 当模块发生改变时，执行回调函数。
 
+devServer 会在内存中，提高处理速度
 
-devServer会在内存中，提高处理速度
 ### SourceMap
+
 打包后的文件，在调试的时候有些问题，SourceMap 可以解决这个问题。
 
 webpack.config.js
+
 ```js
     mode:'development',
     devtool:'cheap-module-eval-source-map', //development
     // production cheap-module-source-map
 ```
+
+### 开发环境和上线环境
+
+根目录下新建`build`文件夹
+build 文件夹下创建 `webpack.common.js`,`webpack.dev.js`,`webpack.prod.js`
+
+1.将通用配置写在 `commom.js`中 2.将剩下的开发配置写在`dev.js`中 3.将剩下的上线配置写在 `prod.js` 中 4.将`common.js`和`dev.js`、`prod.js`合并
+dev.js
+
+```js
+const webpack = require("webpack");
+const merge = require("webpack-merge");
+const commonConfig = require("./webpack.common.js");
+const devConfig = {
+  mode: "production",
+  devtool: "cheap-module-eval-source-map",
+
+  devServer: {
+    contentBase: "./dist", //服务器根路径
+    //open:true,
+    port: 8000,
+    hot: true, // 开启 hot 加载
+    hotOnly: true // 即使 html 不生效，浏览器也不刷新
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()]
+};
+module.exports = merge(commonConfig, devConfig);
+```
+
+prod.js
+
+```js
+const merge = require("webpack-merge");
+const commonConfig = require("./webpack.common.js");
+
+const prodConfig = {
+  mode: "production",
+  devtool: "cheap-module-source-map"
+};
+
+module.exports = merge(commonConfig, prodConfig);
+```
+
+5.安装
+`npm i -D webpack-merge` 6.修改 `package.json`
+
+```json
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server --config ./build/webpack.dev.js",
+    "build": "webpack --config ./build/webpack.prod.js",
+    "watch": "webpack --watch"
+  },
+```
+
+这样，环境就配好了。
+
+### babel 配置
+
+剩余的部分，请看教程

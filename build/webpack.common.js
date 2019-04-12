@@ -1,10 +1,9 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const webpack = require('webpack');
 module.exports={
-    mode:'development',
-    devtool:'cheap-module-eval-source-map', //development
+    mode:'production',
+    devtool:'cheap-module-source-map', //development
     // production cheap-module-source-map
     entry:{
         main:'./src/index.js'
@@ -83,7 +82,6 @@ module.exports={
     plugins:[
         new HtmlWebpackPlugin({template:'./src/index.html'}),
         new CleanWebpackPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
     ],
     output:{
         // publicPath:'http://cdn.com.cn',
