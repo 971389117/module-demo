@@ -233,22 +233,24 @@ indexjs
 我们需要包管理工具,初始化 npm
 `npm init`
 
-
 手动创建 webpack 配置文件
 `webpack.config.js`
 
 修改 index.html
+
 ```html
-    <p>这是我们的网页内容</p>
-    <div id="root"></div>
+<p>这是我们的网页内容</p>
+<div id="root"></div>
 ```
 
 修改 index.js
+
 ```js
-let dom=document.createElement('div')
-dom.innerHTML='abcdefg'
-document.querySelector('#root').append(dom)
+let dom = document.createElement("div");
+dom.innerHTML = "abcdefg";
+document.querySelector("#root").append(dom);
 ```
+
 学习一样新东西，一定是从概念开始的。
 
 ### entryAndOutput
@@ -256,7 +258,7 @@ document.querySelector('#root').append(dom)
 创建 `webpack.config.js` 文件，输入以下内容
 
 ```js
-const path = require('path')
+const path = require("path");
 
 module.exports = {
   entry: {
@@ -268,20 +270,22 @@ module.exports = {
   }
 };
 ```
+
 运行 `npx webpack`,然后将 `index.html` copy 到 `dist`目录。
 这段代码整体就做了一件事，将 `./index.js` 通过 webpack 打包成 `./dist/index.js`
 
 首先呢，运行一下代码，自己感受一下。
 下面逐个解释：
-- entry是程序的打包入口，可以有多个值，例如
-    entry:{main:'index.js',sub:'xxx.js', ...}
+
+- entry 是程序的打包入口，可以有多个值，例如
+  entry:{main:'index.js',sub:'xxx.js', ...}
 - output 是输出的目录，
 - output.filename 打包后的文件名; `[name].js` 中的 [name]是占位符，在这里会被替换成 entry.main 中的 `index`，你也可以不使用占位符，例如 `bundle.js`
-- output.path是一个绝对路径
-- __dirname 代表当前目录的绝对路径
+- output.path 是一个绝对路径
+- \_\_dirname 代表当前目录的绝对路径
 - path.resolve 的作用是将`__dirname`和`dist`拼装成一个绝对路径字符串
 
->>很多东西理解了更好，不理解也没关系，代码跑通了，知道它能够做什么就够了，毕竟，copy run 大法好。
+> > 很多东西理解了更好，不理解也没关系，代码跑通了，知道它能够做什么就够了，毕竟，copy run 大法好。
 
 ### plugins
 
@@ -289,24 +293,25 @@ module.exports = {
 
 在 `webpack.config.js` 中写入下面的代码
 
-``` js
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-module.exports={
-    entry:{
-        main:'./index.js'
-    },
-    plugins:[
-        new HtmlWebpackPlugin({template:'src/index.html'}),
-        new CleanWebpackPlugin(),
-    ],
-    output:{
-        filename:'[name].js',
-        path:path.resolve(__dirname,'dist')
-    }
-}
+```js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin");
+module.exports = {
+  entry: {
+    main: "./index.js"
+  },
+  plugins: [
+    new HtmlWebpackPlugin({ template: "src/index.html" }),
+    new CleanWebpackPlugin()
+  ],
+  output: {
+    filename: "[name].js",
+    path: path.resolve(__dirname, "dist")
+  }
+};
 ```
+
 运行这段代码之前，要安装两个插件
 `npm i -D html-webpack-plugin clean-webpack-plugin`
 
@@ -316,43 +321,46 @@ module.exports={
 
 本节分支：git checkout entryAndOutputAndPlugins
 
-
 ### loader
 
 webpack 可以自动打包 js 文件，所以上面的程序运行很 ok，但是它默认无法打包 css,图片，各种数据文件等等，需要做一些配置来实现他们,这个就是 loader。
 
 #### css
+
 将目录修改为以下形式:
 module-demo
-  src
-    index.html
-    index.js
-    index.css
-  package.json
-  ...
+src
+index.html
+index.js
+index.css
+package.json
+...
 
 index.css
-``` css
-.rect{
-    height: 30px;
-    width: 30px;
-    background-color:gray;
+
+```css
+.rect {
+  height: 30px;
+  width: 30px;
+  background-color: gray;
 }
 ```
 
 index.js
-``` js
-import './index.css'
 
-let dom=document.createElement('div')
-dom.classList.add('rect')
-dom.innerHTML='abcdefg'
-document.querySelector('#root').append(dom)
+```js
+import "./index.css";
 
+let dom = document.createElement("div");
+dom.classList.add("rect");
+dom.innerHTML = "abcdefg";
+document.querySelector("#root").append(dom);
 ```
+
 我们通过 js ，让 webpack 来处理引入关系，而不再手动处理。
 
 webpack.config.js
+
 ```js
     ...
     entry:{
@@ -376,6 +384,7 @@ webpack.config.js
     ...
 }
 ```
+
 安装两个 loader
 `npm i -D style-loader css-loader`
 打开 dist/index.html 看一看，css 起作用了。
@@ -386,8 +395,51 @@ webpack.config.js
 css-loader 让 webpack 可以在 js 中引入 css
 style-loader 将引入的 css 导入到 index.html 中。
 
+本节 tag:
+git checkout loader\_
+git reset --hard loader-css
+
 #### scss
 
 除了 css，我们还希望引入 scss 等东西。
 
+新建 index.scss
+```scss
+body{
+    div{
+        color:blue
+    }
+}
+```
+webpack.config.js
+```js
+    ...
+    module:{
+       ...
+            {
+                test:/\.scss$/,
+                use:[
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader',
+                    'postcss-loader',
+                ]
+            }
+        ]
+    },
+    ...
+```
+postcss-loader 是可选的，它可以为一些新特性自动加上厂商前缀
+创建文件 postcss.config.js
+```js
+module.exports={
+    plugins:[
+        require('autoprefixer') //自动加厂商前缀
+    ]
+}
+```
+安装 loader 和 依赖
+`npm i -D sass-loader postcss-loader node-sass autoprefixer`
+
+运行，OK
 
