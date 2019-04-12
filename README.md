@@ -404,14 +404,17 @@ git reset --hard loader-css
 除了 css，我们还希望引入 scss 等东西。
 
 新建 index.scss
+
 ```scss
-body{
-    div{
-        color:blue
-    }
+body {
+  div {
+    color: blue;
+  }
 }
 ```
+
 webpack.config.js
+
 ```js
     ...
     module:{
@@ -429,17 +432,61 @@ webpack.config.js
     },
     ...
 ```
+
 postcss-loader 是可选的，它可以为一些新特性自动加上厂商前缀
 创建文件 postcss.config.js
+
 ```js
-module.exports={
-    plugins:[
-        require('autoprefixer') //自动加厂商前缀
-    ]
-}
+module.exports = {
+  plugins: [
+    require("autoprefixer") //自动加厂商前缀
+  ]
+};
 ```
+
 安装 loader 和 依赖
 `npm i -D sass-loader postcss-loader node-sass autoprefixer`
 
-运行，OK
+运行，OK 本节 tag loader-scss
 
+**然后我们解决一个 scss 多层导入的问题**
+好像已经解决了？`importLoaders`
+
+#### 图像
+
+src 下粘贴一张图片,取名 `avatar.png`
+index.js
+
+```js
+import avatar from './avatar.png'
+
+...
+
+let img=new Image()
+img.src=avatar
+
+document.querySelector('#root').append(img)
+
+```
+
+webpack.config.js
+
+```js
+  {
+    test:/\.(png|jpg|gif)$/,
+    use:[
+     {
+        loader:'file-loader',
+        options:{
+          name:'[name]-[hash].[ext]',outputPath:'images'
+          }
+      }
+    ]
+  },
+```
+`npm i -D file-loader`
+
+name:输出后的名字 [name] 原文件名 [hash] hash 码，后缀[ext] ，拼接后文件名就是 `avatar-cc90b6a0859f94fe216618ee19bb0aa5.png`
+outputPath:输出的文件路径
+
+#### 字体
