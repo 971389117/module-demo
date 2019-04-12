@@ -1,6 +1,10 @@
-#
+# 笔记
 
-## part1
+## 什么是模块化呢？
+
+编程时，了解一个概念，最好的方式是了解它的发展，从历史上了解，为什么会出现这种技术？
+
+### 前端的蛮荒时代
 
 在最开始，前端是这样做开发的
 
@@ -34,8 +38,9 @@ dom.append(header);
 
 本节 tag : v1
 
-## part2
+### 分段式前端
 
+（我自己起的名）
 于是，我们这样写代码。
 
 index.html
@@ -99,8 +104,7 @@ new Sidebar();
 
 本节 tag : v2
 
-回到正题，这样似乎是解决了刚才的问题，但是又诞生了新的问题。 1.每个 js 文件都会发送一个 HTTP 请求，HTTP 请求过多，会影响网页的加载速度。
-2.如果 index.html 里的 js 文件顺序错了，很可能引发意想不到的错误，增加维护成本。
+回到正题，这样似乎是解决了刚才的问题，但是又诞生了新的问题。 1.每个 js 文件都会发送一个 HTTP 请求，HTTP 请求过多，会影响网页的加载速度。 2.如果 index.html 里的 js 文件顺序错了，很可能引发意想不到的错误，增加维护成本。
 例如：把 index.js 不小心写在了 header.js 的前面
 
 ```html
@@ -117,7 +121,7 @@ index.js:2 Uncaught ReferenceError: Header is not defined
 
 本节 tag : v2.1
 
-## part3
+### 模块化 - 分章节写作
 
 这回，我们又成长了，就好像作家不仅会分段，还会分章节。而我们在通过在一个 js 文件里直接引入其它的 js 文件，避免了 part2
 中所描述的问题，从而实现了模块的分离，这也就是人们常说的模块化。
@@ -182,37 +186,131 @@ new Sidebar();
 本节 tag : v3
 
 但是如果你运行上面的代码，多半会出现报下面的问题。
+
 ```
 Uncaught SyntaxError: Unexpected identifier
 ```
+
 这是因为现在的浏览器尚不支持 es6 的语法。当然，可能在你使用的时候已经支持了。甚至，我们又进化了呢？
 
-## part4
+### 引出 webpack 解决问题
 
 为了解决上面的问题，webpack 等打包工具应用而生。
 
 webpack is a module bundler.
 
-解决问题三步走
-1.在项目中安装 webpack
-`npm install webpack webpack-cli -D`
-2.用 webpack编译项目
-`npx webapck index.js`
+解决问题三步走 1.在项目中安装 webpack
+`npm install webpack webpack-cli -D` 2.用 webpack 编译项目
+`npx webapck index.js` 3.将 index.html 改成下面这样
 
-3.将 index.html 改成下面这样
 ```html
-    <p>这是我们的网页内容</p>
-    <div id="root"></div>
+<p>这是我们的网页内容</p>
+<div id="root"></div>
 
-    <script src="./dist/main.js"></script>
+<script src="./dist/main.js"></script>
 ```
 
 好了，我们也学会给代码分章节了，问题解决了，终于可以好好写代码了。
 
-如果你感兴趣，可以发现webpack 把四个 js 文件 压缩成了一个main.js ,而 main.js 中的代码被压缩成了一行，连空格都没有了呢。
+如果你感兴趣，可以发现 webpack 把四个 js 文件 压缩成了一个 main.js ,而 main.js 中的代码被压缩成了一行，连空格都没有了呢。
 
 本节 tag : v4
 
-## 总结
+### 什么是模块化总结
 
 技术是在不断进步的，随时都可能出现新的解决方案，而上面所写的也不过是让你了解模块化的概念，更多的东西，还需要你继续学习。
+
+## webpack
+
+如果上面的都没有问题，那么你已经安装好了 webpack，并执行了第一次打包工作。
+
+好了，现在为了接下来的学习，我们需要对目录进行精简，删除 `content.js`,`header.js`,`sidebar.js`,`dist·文件夹`
+或者新建一个文件夹，使我们的目录下只剩下了一点东西
+module_demo
+index.html
+indexjs
+
+我们需要包管理工具,初始化 npm
+`npm init`
+
+
+手动创建 webpack 配置文件
+`webpack.config.js`
+
+修改 index.html
+```html
+    <p>这是我们的网页内容</p>
+    <div id="root"></div>
+```
+
+修改 index.js
+```js
+let dom=document.createElement('div')
+dom.innerHTML='abcdefg'
+document.querySelector('#root').append(dom)
+```
+学习一样新东西，一定是从概念开始的。
+
+### entryAndOutput
+
+创建 `webpack.config.js` 文件，输入以下内容
+
+```js
+const path = require('path')
+
+module.exports = {
+  entry: {
+    main: "./index.js"
+  },
+  output: {
+    filename: "[name].js",
+    path: path.resolve(__dirname, "dist")
+  }
+};
+```
+运行 `npx webpack`,然后将 `index.html` copy 到 `dist`目录。
+这段代码整体就做了一件事，将 `./index.js` 通过 webpack 打包成 `./dist/index.js`
+
+首先呢，运行一下代码，自己感受一下。
+下面逐个解释：
+- entry是程序的打包入口，可以有多个值，例如
+    entry:{main:'index.js',sub:'xxx.js', ...}
+- output 是输出的目录，
+- output.filename 打包后的文件名; `[name].js` 中的 [name]是占位符，在这里会被替换成 entry.main 中的 `index`，你也可以不使用占位符，例如 `bundle.js`
+- output.path是一个绝对路径
+- __dirname 代表当前目录的绝对路径
+- path.resolve 的作用是将`__dirname`和`dist`拼装成一个绝对路径字符串
+
+>>很多东西理解了更好，不理解也没关系，代码跑通了，知道它能够做什么就够了，毕竟，copy run 大法好。
+
+### plugins
+
+插件类似其它程序中的生命周期函数，在 webpack 打包的某一个时间点，做一些事情。
+
+在 `webpack.config.js` 中写入下面的代码
+
+``` js
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+module.exports={
+    entry:{
+        main:'./index.js'
+    },
+    plugins:[
+        new HtmlWebpackPlugin({template:'src/index.html'}),
+        new CleanWebpackPlugin(),
+    ],
+    output:{
+        filename:'[name].js',
+        path:path.resolve(__dirname,'dist')
+    }
+}
+```
+运行这段代码之前，要安装两个插件
+`npm i -D html-webpack-plugin clean-webpack-plugin`
+
+继续运行一下试试吧。`npx webpack`
+
+这段新增的代码也做了一件事，在打包的时候，把上一次打包成的`dist`目录删除【new CleanWebpackPlugin()】,然后将`index.html` 作为模板，copy 到 output 输出的目录中。
+
