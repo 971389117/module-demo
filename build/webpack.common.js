@@ -2,19 +2,19 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports={
-    mode:'production',
-    devtool:'cheap-module-source-map', //development
+    // mode:'production',
+    // devtool:'cheap-module-source-map', //development
     // production cheap-module-source-map
     entry:{
         main:'./src/index.js'
     },
-    devServer:{
-        contentBase:'./dist', //服务器根路径
-        //open:true,
-        port:8000,
-        hot:true,  // 开启 hot 加载
-        hotOnly:true// 即使 html 不生效，浏览器也不刷新
-    },
+    // devServer:{
+    //     contentBase:'./dist', //服务器根路径
+    //     //open:true,
+    //     port:8000,
+    //     hot:true,  // 开启 hot 加载
+    //     hotOnly:true// 即使 html 不生效，浏览器也不刷新
+    // },
     module:{
         rules:[
             {
